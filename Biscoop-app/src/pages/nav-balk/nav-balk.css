@@ -4,7 +4,8 @@
   align-items: center;
   background-color: #1e293b;
   padding: 12px;
-  border-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 .nav-items {
