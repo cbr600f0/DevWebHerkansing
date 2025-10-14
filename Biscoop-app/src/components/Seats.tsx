@@ -8,18 +8,21 @@ type Seat = {
 
 const Seats: React.FC = () => {
   // Initialize state: an array of 100 seats, all available initially
-  const [seats, setSeats] = useState<Seat[]>(
-    Array.from({ length: 100 }, (_, i) => ({ id: i, reserved: false }))
-  );
+const [seats, setSeats] = useState<Seat[]>(() => {
+  const savedSeats = localStorage.getItem('seats');
+  return savedSeats ? JSON.parse(savedSeats) : Array.from({ length: 100 }, (_, i) => ({ id: i, reserved: false }));
+});
 
   // Toggle the reserved state of a seat by id
-  const toggleReservation = (id: number) => {
-    setSeats(prevSeats =>
-      prevSeats.map(seat =>
-        seat.id === id ? { ...seat, reserved: !seat.reserved } : seat
-      )
+const toggleReservation = (id: number) => {
+  setSeats(prevSeats => {
+    const updatedSeats = prevSeats.map(seat =>
+      seat.id === id ? { ...seat, reserved: !seat.reserved } : seat
     );
-  };
+    localStorage.setItem('seats', JSON.stringify(updatedSeats));
+    return updatedSeats;
+  });
+};
 
   return (
     <div id="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '5px' }}>
