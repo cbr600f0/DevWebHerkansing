@@ -4,11 +4,64 @@ import MovieInfo from "../movie-detail/MovieInfo";
 import "./movie-panel.css";
 
 function Movie_panel() {
+    interface MovieProp {
+        id: string;
+        title: string;
+        duration: number;
+        rating: string;
+        genre: string;
+        description: string;
+    }
+
+    const [movies, setMovies] = useState<MovieProp[]>([
+        {
+            id: "1",
+            title: "The Grand Adventure",
+            duration: 120,
+            rating: "PG",
+            genre: "Adventure",
+            description: "A thrilling journey across mysterious lands."
+        },
+        {
+            id: "2",
+            title: "Laugh Out Loud",
+            duration: 95,
+            rating: "PG-13",
+            genre: "Comedy",
+            description: "A hilarious comedy that will leave you in stitches."
+        },
+        {
+            id: "3",
+            title: "Mystery of the Night",
+            duration: 110,
+            rating: "R",
+            genre: "Mystery",
+            description: "A suspenseful story full of twists and turns."
+        },
+        {
+            id: "4",
+            title: "Love in Paris",
+            duration: 105,
+            rating: "PG",
+            genre: "Romance",
+            description: "A heartfelt romance set in the city of love."
+        },
+        {
+            id: "5",
+            title: "Sci-Fi Odyssey",
+            duration: 130,
+            rating: "PG-13",
+            genre: "Science Fiction",
+            description: "An epic adventure through space and time."
+        }
+    ]);
+
     const [title, setTitle] = useState("");
     const [rating, setRating] = useState("");
     const [genre, setGenre] = useState("");
     const [duration, setDuration] = useState("");
     const [description, setDescription] = useState("");
+    const [selectedMovie, setSelectedMovie] = useState<MovieProp | null>(null);
     const [poster, setPoster] = useState<string | undefined>(undefined);
 
     const handlePosterUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +81,23 @@ function Movie_panel() {
         alert("Movie saved!");
     };
 
+    const movieChosen = (movie: MovieProp | null) => {
+        if (!movie) {
+            setDescription('');
+            setDuration('');
+            setTitle('');
+            setGenre('');
+            setRating('');
+            return;
+        }
+
+        setDescription(movie.description);
+        setDuration(movie.duration.toString());
+        setTitle(movie.title);
+        setGenre(movie.genre);
+        setRating(movie.rating);
+    };
+
     return (
         <div className="movie-panel-container">
             <div className="movie-preview-side">
@@ -39,7 +109,7 @@ function Movie_panel() {
                         duration={duration}
                         rating={rating}
                         genre={genre}
-                        includeDescription = {true}
+                        includeDescription={true}
                         description={description}
                         className="movie-info-preview"
                         posterClass="movie-preview-poster"
@@ -49,72 +119,105 @@ function Movie_panel() {
             </div>
 
             <div className="movie-form-side">
-                <h2>Add Movie Info</h2>
+                <div className="form-top">
+                    <h2>Add Movie Info</h2>
 
-                <div className="form-group">
-                    <label>Title:</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Enter movie title"
-                    />
+                    <div className="form-group">
+                        <label>Title:</label>
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="Enter movie title"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Duration (minutes):</label>
+                        <input
+                            type="number"
+                            value={duration}
+                            onChange={(e) => setDuration(e.target.value)}
+                            placeholder="Enter duration in minutes"
+                            min={0}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>PG Rating:</label>
+                        <select
+                            value={rating}
+                            onChange={(e) => setRating(e.target.value)}
+                        >
+                            <option value="">Select rating</option>
+                            <option value="G">G</option>
+                            <option value="PG">PG</option>
+                            <option value="PG-13">PG-13</option>
+                            <option value="R">R</option>
+                            <option value="NC-17">NC-17</option>
+                            <option value="NR">NR</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Genre:</label>
+                        <input
+                            type="text"
+                            value={genre}
+                            onChange={(e) => setGenre(e.target.value)}
+                            placeholder="e.g. Comedy, Mystery"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Description:</label>
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="Enter movie description"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Poster Image:</label>
+                        <input type="file" accept="image/*" onChange={handlePosterUpload} />
+                    </div>
+
+                    <button onClick={handleSave} className="save-button">
+                        Save Movie
+                    </button>
                 </div>
 
-                <div className="form-group">
-                    <label>Duration (minutes):</label>
-                    <input
-                        type="number"
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                        placeholder="Enter duration in minutes"
-                        min={0}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>PG Rating:</label>
+                <div className="form-bottom">
+                    <h3>Select a Movie</h3>
                     <select
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
+                        value={selectedMovie?.id || ""}
+                        onChange={(e) => {
+                            const movie = movies.find((m) => m.id === e.target.value) || null;
+                            setSelectedMovie(movie);
+                            movieChosen(movie);
+                        }}
                     >
-                        <option value="">Select rating</option>
-                        <option value="G">G</option>
-                        <option value="PG">PG</option>
-                        <option value="PG-13">PG-13</option>
-                        <option value="R">R</option>
-                        <option value="NC-17">NC-17</option>
-                        <option value="NR">NR</option>
+                        <option value="">-- Pick a Movie --</option>
+                        {movies.map((movie) => (
+                            <option key={movie.id} value={movie.id}>
+                                {movie.title}
+                            </option>
+                        ))}
                     </select>
+                    <button
+                        className="delete-button"
+                        onClick={() => {
+                            if (!selectedMovie) return;
+                            const updatedMovies = movies.filter(m => m.id !== selectedMovie.id);
+                            setMovies(updatedMovies);
+                            setSelectedMovie(null);
+                            movieChosen(null);
+                        }}
+                    >
+                        Delete Movie
+                    </button>
                 </div>
-
-                <div className="form-group">
-                    <label>Genre:</label>
-                    <input
-                        type="text"
-                        value={genre}
-                        onChange={(e) => setGenre(e.target.value)}
-                        placeholder="e.g. Comedy, Mystery"
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Description:</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Enter movie description"
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Poster Image:</label>
-                    <input type="file" accept="image/*" onChange={handlePosterUpload} />
-                </div>
-
-                <button onClick={handleSave} className="save-button">
-                    Save Movie
-                </button>
             </div>
         </div>
     );
