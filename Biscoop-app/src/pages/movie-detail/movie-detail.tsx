@@ -47,6 +47,7 @@ return(
                 duration="1h 28m"
                 rating="PG-13"
                 genre="Comedy, Mystery"
+                includeDescription = {true}
                 description="A comedic thriller and a continuation of the TV series, following Shawn Spencer and Burton Guster as they investigate an attack on Juliet O'Hara's partner, Samuel, which results in the theft of a device giving access to the San Francisco Police Department database."
                 className="movie-info"
                 posterClass="poster"

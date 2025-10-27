@@ -45,4 +45,3 @@ const ShowSelector: React.FC<ShowSelectorProps> = ({ showtimes }) => {
 };
 
 export default ShowSelector;
-;

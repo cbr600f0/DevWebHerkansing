@@ -33,6 +33,7 @@ function MovieList() {
                     rating={item.rating}
                     genre={item.genre}
                     stars = {renderStars(averageRating(item.reviews))}
+                    includeDescription = {false}
                     className="movie-info-list"
                     posterClass="poster-movielist"
                     textClass="movie-info-text"
