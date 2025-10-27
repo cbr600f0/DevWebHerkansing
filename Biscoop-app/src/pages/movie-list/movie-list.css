@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 12px;
-gap: 8px;
+  gap: 8px;
 }
 
 .movie-list-part {
@@ -57,4 +57,21 @@ gap: 8px;
   font-weight: bold;
   color: #9ab0c9;
    margin-right: 5px;
+}
+
+.voorstelling-info {
+    display: flex;
+    flex-wrap: wrap;      
+    gap: 16px;             
+}
+
+.voorstelling-card {
+  border-radius: 12px;
+  background-color: #334155;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content; 
+  height: fit-content;
 }

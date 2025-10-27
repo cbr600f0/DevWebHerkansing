@@ -1,5 +1,4 @@
 import "./movie-detail.css";
-import psychPoster from "../../images/Psych-the-Movie-poster.webp";
 import ReviewList from "./ReviewList";
 import ShowtimeSelector from "./ShowSelector";
 import MovieInfo from "./MovieInfo";
@@ -44,12 +43,14 @@ return(
 
         <div>
             <MovieInfo
-                poster={psychPoster}
                 title="Psych: The Movie"
                 duration="1h 28m"
                 rating="PG-13"
                 genre="Comedy, Mystery"
                 description="A comedic thriller and a continuation of the TV series, following Shawn Spencer and Burton Guster as they investigate an attack on Juliet O'Hara's partner, Samuel, which results in the theft of a device giving access to the San Francisco Police Department database."
+                className="movie-info"
+                posterClass="poster"
+                textClass="info"
             />
         </div>
 

@@ -1,7 +1,7 @@
 import {fakeMovies} from "./fake-data"
 import {Link} from "react-router-dom";
 import "./movie-list.css"
-import psychPoster from "../../images/Psych-the-Movie-poster.webp";
+import MovieInfo from "../movie-detail/MovieInfo";
 
 type Review = {
   name: string;
@@ -10,12 +10,12 @@ type Review = {
 };
 
 function MovieList() {
-const renderStars = (rating: number) => {
-    const fullStars = "★".repeat(Math.floor(rating));
-    const halfStar = rating % 1 >= 0.5 ? "⯪" : "";
-    const emptyStars = "☆".repeat(5 - Math.ceil(rating));
-    return fullStars + halfStar + emptyStars;
-};
+    const renderStars = (rating: number) => {
+        const fullStars = "★".repeat(Math.floor(rating));
+        const halfStar = rating % 1 >= 0.5 ? "⯪" : "";
+        const emptyStars = "☆".repeat(5 - Math.ceil(rating));
+        return fullStars + halfStar + emptyStars;
+    };
 
     const averageRating = (reviews: Review[]) => {
         if (reviews.length === 0) return 0;
@@ -27,15 +27,24 @@ const renderStars = (rating: number) => {
         <div className="movie-list">
             {fakeMovies.info.map((item) => (
             <div className="movie-list-part">
-                <div className="movie-info-list">
-                    <img className="poster-movielist" src={psychPoster} alt={item.title}/>
-                    <div className="movie-info-text">
-                        <h1>{item.title}</h1>
-                        <div><span className="label">Duration:</span> {item.duration}</div>
-                        <div><span className="label">PG:</span> {item.rating}</div>
-                        <div><span className="label">Genre:</span> {item.genre}</div>
-                        <div><span className="label">Rating:</span> {renderStars(averageRating(item.reviews))}</div>
-                    </div>
+                <MovieInfo
+                    title={item.title}
+                    duration={item.duration}
+                    rating={item.rating}
+                    genre={item.genre}
+                    stars = {renderStars(averageRating(item.reviews))}
+                    className="movie-info-list"
+                    posterClass="poster-movielist"
+                    textClass="movie-info-text"
+                />
+                <div className="voorstelling-info">
+                    {item.voorstelingen.map((voorstelling) => (
+                        <div className="voorstelling-card">
+                            <div>zaal: {voorstelling.zaal.naam}</div>
+                            <div>stoelen: {voorstelling.zaal.rijen * voorstelling.zaal.stoeln_per_rij}</div>
+                            <div>tijd: {voorstelling.begintijd} - {voorstelling.eindtijd}</div>
+                        </div>
+                    ))}
                 </div>
                 <Link
                     key={item.title}

@@ -36,11 +36,12 @@ h2 {
 
 .movie-info {
   display: flex;
+  align-items: flex-start;
   gap: 15px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; 
 }
 
-.poster img {
+.poster{
   width: 220px;
   border-radius: 6px;
 }
