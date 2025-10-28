@@ -97,7 +97,7 @@ function Zaal_panel() {
                 </div>
 
                 <div className="form-bottom">
-                    <h3>Select a rRoom</h3>
+                    <h3>Select a Room</h3>
                     <select
                         value={selectedZaal?.id || ""}
                         onChange={(e) => {
@@ -113,6 +113,7 @@ function Zaal_panel() {
                             </option>
                         ))}
                     </select>
+                    
                     <button
                         className="delete-button"
                         onClick={() => {

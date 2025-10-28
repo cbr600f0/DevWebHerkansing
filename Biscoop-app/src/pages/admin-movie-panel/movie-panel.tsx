@@ -59,7 +59,7 @@ function Movie_panel() {
     const [title, setTitle] = useState("");
     const [rating, setRating] = useState("");
     const [genre, setGenre] = useState("");
-    const [duration, setDuration] = useState("");
+    const [duration, setDuration] = useState<number | string>("");
     const [description, setDescription] = useState("");
     const [selectedMovie, setSelectedMovie] = useState<MovieProp | null>(null);
     const [poster, setPoster] = useState<string | undefined>(undefined);
@@ -106,7 +106,7 @@ function Movie_panel() {
                     <MovieInfo
                         poster={poster}
                         title={title}
-                        duration={duration}
+                        duration={duration as number}
                         rating={rating}
                         genre={genre}
                         includeDescription={true}
