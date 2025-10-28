@@ -8,6 +8,8 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import Profile from './pages/profile/Profile'
 import type { User, Movie } from './types'
+import EditProfile from './pages/profile/EditProfile';
+import History from './pages/profile/History';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -34,6 +36,8 @@ function App() {
         <Route path="/ScreeningRoom" element={<ScreeningRoom />} />
         <Route path="/profile" element={<Profile user={user} movies={movies} onLogout={handleLogout} />} />
         <Route path="/" element={<Navigate to="/ScreeningRoom" replace />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/history" element={<History movies={movies} />} />
       </Routes>
     </BrowserRouter>
   )

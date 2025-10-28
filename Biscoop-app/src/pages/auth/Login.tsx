@@ -57,8 +57,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         
         <div className="auth-footer">
           <span className="auth-text">Don't have an account? </span>
-          <button 
-            onClick={() => navigate('/register')} 
+          <button
+            type="button"
+            onClick={() => navigate('/register')}
             className="link-button"
           >
             Sign up

@@ -23,7 +23,6 @@ const EditProfile: React.FC = () => {
   };
 
   const handleSave = () => {
-    // In a real app, you'd make an API call here
     navigate('/profile');
   };
 

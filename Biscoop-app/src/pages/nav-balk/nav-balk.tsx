@@ -15,7 +15,6 @@ function NavBalk({ isAuthenticated = false }: NavBalkProps) {
     ? [{ to: "/profile", label: "Profile", emoji: "👤" }]
     : [
         { to: "/login", label: "Login", emoji: "🔑" },
-        { to: "/register", label: "Register", emoji: "📝" }
       ];
 
   const allItems = [...navItems, ...authItems];
