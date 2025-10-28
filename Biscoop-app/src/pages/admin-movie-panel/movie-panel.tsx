@@ -213,6 +213,7 @@ function Movie_panel() {
                             setMovies(updatedMovies);
                             setSelectedMovie(null);
                             movieChosen(null);
+                            // uiteindelijk delete naar backend
                         }}
                     >
                         Delete Movie
