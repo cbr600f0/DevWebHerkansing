@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { hashCode } from "../../utils/image-hascode";
 import MovieInfo from "../movie-detail/MovieInfo";
 import "./show-panel.css";
-import {fakeShows} from "./fake-data"
-import {fakeMovies} from "./fake-data"
-import {fakeRooms} from "./fake-data"
+import { fakeShows } from "./fake-data"
+import { fakeMovies } from "./fake-data"
+import { fakeRooms } from "./fake-data"
 
 function Movie_panel() {
     interface ZaalProp {
@@ -46,13 +46,11 @@ function Movie_panel() {
             alert("Please enter all info.");
             return;
         }
-        if(new Date(startDate) > new Date(endDate))
-        {
+        if (new Date(startDate) > new Date(endDate)) {
             alert("Start date can't be after end date.");
             return;
         }
-        if( new Date(addMinutes(startDate, selectedMovie.duration)) > new Date(endDate))
-        {
+        if (new Date(addMinutes(startDate, selectedMovie.duration)) > new Date(endDate)) {
             alert("Show isn't long enough.");
             return;
         }
@@ -68,6 +66,22 @@ function Movie_panel() {
         const local = new Date(date.getTime() - offset * 60 * 1000);
         return local.toISOString().slice(0, 16);
     }
+
+    function formatDateForShowing(date: Date | string): string {
+        if (!date) return "";
+        
+        const d = typeof date === "string" ? new Date(date) : date;
+
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+
+        const hours = String(d.getHours()).padStart(2, "0");
+        const minutes = String(d.getMinutes()).padStart(2, "0");
+
+        return `${day}/${month}/${year} - ${hours}:${minutes}`;
+    }
+
 
     function addMinutes(date: Date | string, minutes: number): Date {
         const base = typeof date === "string" ? new Date(date) : date;
@@ -105,8 +119,31 @@ function Movie_panel() {
                         posterClass="movie-preview-poster"
                         textClass="movie-preview-info"
                     />
-                    )}
-
+                )}
+                {selectedzaal!= null &&
+                    <div id="info">
+                        <div>
+                            <span className="label">Room name:</span> {selectedzaal?.naam}
+                        </div>
+                        <div>
+                            <span className="label">Total Seats:</span> {selectedzaal?.stoelen_per_rij * selectedzaal.rijen}
+                        </div>
+                    </div>
+                }
+                {startDate!= "" &&
+                    <div id="info">
+                        <div>
+                            <span className="label">Start date:</span> {formatDateForShowing(startDate)}
+                        </div>
+                    </div>
+                }
+                {endDate!= "" &&
+                    <div id="info">
+                        <div>
+                            <span className="label">End date:</span> {formatDateForShowing(endDate)}
+                        </div>
+                    </div>
+                }
             </div>
 
             <div className="movie-form-side">
