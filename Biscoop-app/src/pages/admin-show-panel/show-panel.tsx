@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { hashCode } from "../../utils/image-hascode";
+import { useState } from "react";
+import { formatDateForShowing } from "../../utils/date-fromatter";
 import MovieInfo from "../movie-detail/MovieInfo";
 import "./show-panel.css";
-import { fakeShows } from "./fake-data"
-import { fakeMovies } from "./fake-data"
-import { fakeRooms } from "./fake-data"
+import { fakeShows } from "../../utils/fake-data"
+import { fakeMovies } from "../../utils/fake-data"
+import { fakeZalen } from "../../utils/fake-data"
 
-function Movie_panel() {
+function Show_panel() {
     interface ZaalProp {
         id: string;
         naam: string;
@@ -33,7 +33,7 @@ function Movie_panel() {
 
     const [shows, setShows] = useState<ShowProp[]>(fakeShows);
     const [movies] = useState<MovieProp[]>(fakeMovies);
-    const [rooms] = useState<ZaalProp[]>(fakeRooms);
+    const [rooms] = useState<ZaalProp[]>(fakeZalen);
 
     const [selectedShow, setSelectedShow] = useState<ShowProp | null>(null);
     const [selectedMovie, setSelectedMovie] = useState<MovieProp | null>(null);
@@ -66,22 +66,6 @@ function Movie_panel() {
         const local = new Date(date.getTime() - offset * 60 * 1000);
         return local.toISOString().slice(0, 16);
     }
-
-    function formatDateForShowing(date: Date | string): string {
-        if (!date) return "";
-        
-        const d = typeof date === "string" ? new Date(date) : date;
-
-        const day = String(d.getDate()).padStart(2, "0");
-        const month = String(d.getMonth() + 1).padStart(2, "0");
-        const year = d.getFullYear();
-
-        const hours = String(d.getHours()).padStart(2, "0");
-        const minutes = String(d.getMinutes()).padStart(2, "0");
-
-        return `${day}/${month}/${year} - ${hours}:${minutes}`;
-    }
-
 
     function addMinutes(date: Date | string, minutes: number): Date {
         const base = typeof date === "string" ? new Date(date) : date;
@@ -241,4 +225,4 @@ function Movie_panel() {
     );
 }
 
-export default Movie_panel;
+export default Show_panel;

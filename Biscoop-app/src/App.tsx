@@ -1,6 +1,6 @@
 import Movie_detail from './pages/movie-detail/movie-detail'
 import Movie_list from './pages/movie-list/movie-list'
-import Movie_panel from './pages/admin-show-panel/show-panel'
+import Movie_panel from './pages/admin-movie-panel/movie-panel'
 import Zaal_panel from './pages/admin-zaal-panel/zaal-panel'
 import Show_panel from './pages/admin-show-panel/show-panel'
 import NavBalk from './pages/nav-balk/nav-balk'

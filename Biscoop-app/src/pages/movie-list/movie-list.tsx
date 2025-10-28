@@ -1,4 +1,5 @@
-import {fakeMovies} from "./fake-data"
+import {movieList} from "../../utils/fake-data"
+import { formatDateForShowing } from "../../utils/date-fromatter";
 import {Link} from "react-router-dom";
 import "./movie-list.css"
 import MovieInfo from "../movie-detail/MovieInfo";
@@ -25,13 +26,13 @@ function MovieList() {
 
     return(
         <div className="movie-list">
-            {fakeMovies.info.map((item) => (
+            {movieList.info.map((item) => (
             <div className="movie-list-part">
                 <MovieInfo
-                    title={item.title}
-                    duration={item.duration}
-                    rating={item.rating}
-                    genre={item.genre}
+                    title={item.movie.title}
+                    duration={item.movie.duration}
+                    rating={item.movie.rating}
+                    genre={item.movie.genre}
                     stars = {renderStars(averageRating(item.reviews))}
                     includeDescription = {false}
                     className="movie-info-list"
@@ -42,15 +43,16 @@ function MovieList() {
                     {item.voorstelingen.map((voorstelling) => (
                         <div className="voorstelling-card">
                             <div>zaal: {voorstelling.zaal.naam}</div>
-                            <div>stoelen: {voorstelling.zaal.rijen * voorstelling.zaal.stoeln_per_rij}</div>
-                            <div>tijd: {voorstelling.begintijd} - {voorstelling.eindtijd}</div>
+                            <div>stoelen: {voorstelling.zaal.rijen * voorstelling.zaal.stoelen_per_rij}</div>
+                            <div>start date: {formatDateForShowing(voorstelling.start_date)}</div>
+                            <div>end date: {formatDateForShowing(voorstelling.end_date)}</div>
                         </div>
                     ))}
                 </div>
                 <Link
-                    key={item.title}
+                    key={item.movie.title}
                     to={"/movie_detail"}
-                    title={item.title}
+                    title={item.movie.title}
                     className="goto-button"
                     >
                         {"details"}

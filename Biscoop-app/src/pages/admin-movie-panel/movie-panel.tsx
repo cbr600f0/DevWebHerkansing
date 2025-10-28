@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { hashCode } from "../../utils/image-hascode";
+import { fakeMovies } from "../../utils/fake-data";
 import MovieInfo from "../movie-detail/MovieInfo";
 import "./movie-panel.css";
 
@@ -13,48 +14,7 @@ function Movie_panel() {
         description: string;
     }
 
-    const [movies, setMovies] = useState<MovieProp[]>([
-        {
-            id: "1",
-            title: "The Grand Adventure",
-            duration: 120,
-            rating: "PG",
-            genre: "Adventure",
-            description: "A thrilling journey across mysterious lands."
-        },
-        {
-            id: "2",
-            title: "Laugh Out Loud",
-            duration: 95,
-            rating: "PG-13",
-            genre: "Comedy",
-            description: "A hilarious comedy that will leave you in stitches."
-        },
-        {
-            id: "3",
-            title: "Mystery of the Night",
-            duration: 110,
-            rating: "R",
-            genre: "Mystery",
-            description: "A suspenseful story full of twists and turns."
-        },
-        {
-            id: "4",
-            title: "Love in Paris",
-            duration: 105,
-            rating: "PG",
-            genre: "Romance",
-            description: "A heartfelt romance set in the city of love."
-        },
-        {
-            id: "5",
-            title: "Sci-Fi Odyssey",
-            duration: 130,
-            rating: "PG-13",
-            genre: "Science Fiction",
-            description: "An epic adventure through space and time."
-        }
-    ]);
+    const [movies, setMovies] = useState<MovieProp[]>(fakeMovies);
 
     const [title, setTitle] = useState("");
     const [rating, setRating] = useState("");

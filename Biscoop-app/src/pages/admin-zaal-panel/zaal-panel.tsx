@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { hashCode } from "../../utils/image-hascode";
-import MovieInfo from "../movie-detail/MovieInfo";
+import { useState } from "react";
+import {fakeZalen} from "../../utils/fake-data"
 import "./zaal-panel.css";
 
 function Zaal_panel() {
@@ -11,13 +10,7 @@ function Zaal_panel() {
         stoelen_per_rij: number;
     }
 
-    const [zalen, setZalen] = useState<ZaalProp[]>([
-        { id: "zaal-1", naam: "Zaal 1 - Grote Zaal", rijen: 15, stoelen_per_rij: 20 },
-        { id: "zaal-2", naam: "Zaal 2 - Middenzaal", rijen: 10, stoelen_per_rij: 15 },
-        { id: "zaal-3", naam: "Zaal 3 - Kleine Zaal", rijen: 8, stoelen_per_rij: 12 },
-        { id: "zaal-4", naam: "Zaal 4 - VIP Lounge", rijen: 5, stoelen_per_rij: 10 },
-        { id: "zaal-5", naam: "Zaal 5 - IMAX", rijen: 20, stoelen_per_rij: 25 },
-    ]);
+    const [zalen, setZalen] = useState<ZaalProp[]>(fakeZalen);
 
     const [naam, setNaam] = useState("");
     const [rijen, setRijen] = useState<number | string>("");

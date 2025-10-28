@@ -44,7 +44,7 @@ return(
         <div>
             <MovieInfo
                 title="Psych: The Movie"
-                duration="1h 28m"
+                duration={88}
                 rating="PG-13"
                 genre="Comedy, Mystery"
                 includeDescription = {true}
