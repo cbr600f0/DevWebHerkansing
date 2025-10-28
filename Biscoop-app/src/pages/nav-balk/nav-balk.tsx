@@ -9,6 +9,7 @@ function NavBalk(){
         { to: "/movie_list", label: "movie-list", emoji: "🎥"},
         { to: "/movie_panel", label: "manage-movies", emoji: "📎"},
         { to: "/zaal_panel", label: "manage-rooms", emoji: "📎"},
+        { to: "/ScreeningRoom", label: "room", emoji: "🏠"},
     ];
 
     return (

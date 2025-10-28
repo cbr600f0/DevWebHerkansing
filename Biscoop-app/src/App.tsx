@@ -5,6 +5,7 @@ import Zaal_panel from './pages/admin-zaal-panel/zaal-panel'
 import NavBalk from './pages/nav-balk/nav-balk'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css'
+import ScreeningRoom from './pages/ScreeningRoom/ScreeningRoom';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/movie_panel" element={<Movie_panel />}/>
         <Route path="/zaal_panel" element={<Zaal_panel/>}/>
         <Route path="/" element={<Navigate to="/movie_detail" replace />} />
+        <Route path="/ScreeningRoom" element={<ScreeningRoom />} />
+        <Route path="/" element={<Navigate to="/ScreeningRoom" replace />} />
       </Routes>
     </BrowserRouter>
   )

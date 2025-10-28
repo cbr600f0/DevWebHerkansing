@@ -52,20 +52,7 @@ function Zaal_panel() {
         <div className="movie-panel-container">
             <div className="movie-preview-side">
                 <div className="top"><h1>Preview</h1></div>
-                {/* {(
-                    <MovieInfo
-                        poster={poster}
-                        title={title}
-                        duration={duration}
-                        rating={rating}
-                        genre={genre}
-                        includeDescription={true}
-                        description={description}
-                        className="movie-info-preview"
-                        posterClass="movie-preview-poster"
-                        textClass="movie-preview-info"
-                    />
-                )} */}
+                
             </div>
 
             <div className="movie-form-side">
