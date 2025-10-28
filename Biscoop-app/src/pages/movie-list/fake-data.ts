@@ -1,7 +1,7 @@
 export interface MovieVoorsetllingenProps {
   poster: string;
   title: string;
-  duration: string;
+  duration: number;
   rating: string;
   genre: string;
   description: string;
@@ -36,7 +36,7 @@ export const fakeMovies: MovieList = {
     {
       poster: "https://image.tmdb.org/t/p/w500/inception.jpg",
       title: "Inception",
-      duration: "2h 28m",
+      duration: 148,
       rating: "PG-13",
       genre: "Sci-Fi, Thriller",
       description:
@@ -66,7 +66,7 @@ export const fakeMovies: MovieList = {
     {
       poster: "https://image.tmdb.org/t/p/w500/interstellar.jpg",
       title: "Interstellar",
-      duration: "2h 49m",
+      duration: 169,
       rating: "PG-13",
       genre: "Adventure, Drama, Sci-Fi",
       description:
@@ -96,7 +96,7 @@ export const fakeMovies: MovieList = {
     {
       poster: "https://image.tmdb.org/t/p/w500/dune2.jpg",
       title: "Dune: Part Two",
-      duration: "2h 46m",
+      duration: 166,
       rating: "PG-13",
       genre: "Action, Adventure, Drama",
       description:
@@ -126,7 +126,7 @@ export const fakeMovies: MovieList = {
     {
       poster: "https://image.tmdb.org/t/p/w500/joker.jpg",
       title: "Joker",
-      duration: "2h 2m",
+      duration: 122,
       rating: "PG-13",
       genre: "Crime, Drama, Thriller",
       description:
@@ -156,7 +156,7 @@ export const fakeMovies: MovieList = {
     {
       poster: "https://image.tmdb.org/t/p/w500/spiderman.jpg",
       title: "Spider-Man: No Way Home",
-      duration: "2h 28m",
+      duration: 148,
       rating: "8.3",
       genre: "Action, Adventure, Fantasy",
       description:

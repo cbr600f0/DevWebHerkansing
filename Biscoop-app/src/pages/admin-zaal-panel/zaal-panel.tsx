@@ -74,7 +74,7 @@ function Zaal_panel() {
                         <input
                             type="number"
                             value={rijen}
-                            onChange={(e) => setRijen(e.target.value as unknown as number)}
+                            onChange={(e) => setRijen(e.target.value)}
                             placeholder="Enter amount of rows"
                             min={0}
                         />
@@ -85,7 +85,7 @@ function Zaal_panel() {
                         <input
                             type="number"
                             value={rijen}
-                            onChange={(e) => setStoelenPerRij(e.target.value as unknown as number)}
+                            onChange={(e) => setStoelenPerRij(e.target.value)}
                             placeholder="Enter amount seats per row"
                             min={0}
                         />

@@ -3,7 +3,7 @@ import { hashCode } from "../../utils/image-hascode";
 interface MovieInfoProps {
   poster?: string;
   title: string;
-  duration: string;
+  duration: number;
   rating: string;
   genre: string;
   includeDescription: boolean;
@@ -39,7 +39,7 @@ const MovieInfo: React.FC<MovieInfoProps> = ({
       <div className={textClass}>
         <h1>{title}</h1>
 
-        <div><span className="label">Duration:</span> {duration}</div>
+        <div><span className="label">Duration:</span> {duration} min</div>
         <div><span className="label">PG:</span> {rating}</div>
         <div><span className="label">Genre:</span> {genre}</div>
         {includeDescription == true && (
