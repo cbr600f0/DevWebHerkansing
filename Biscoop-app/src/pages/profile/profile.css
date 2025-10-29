@@ -58,10 +58,40 @@
   color: #ffffff;
 }
 
+.profile-username {
+  color: #6ba3d8;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
 .profile-email {
   color: #9ab0c9;
   font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.profile-bio {
+  color: #e6e6e6;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  padding: 12px 24px;
+  background: #0a0a0f;
+  border: 1px solid #2e2e38;
+  border-radius: 8px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.profile-genre {
+  color: #9ab0c9;
+  font-size: 0.85rem;
   margin-bottom: 16px;
+  padding: 8px 16px;
+  background: #0a0a0f;
+  border: 1px solid #2e2e38;
+  border-radius: 20px;
+  display: inline-block;
 }
 
 .profile-badge {
@@ -181,6 +211,10 @@
   color: #9ab0c9;
   font-size: 0.75rem;
   margin-top: 2px;
+}
+
+.no-activity {
+  padding: 1rem;
 }
 
 /* Edit Profile Specific */
@@ -345,9 +379,14 @@
   color: white;
 }
 
-.btn-success:hover {
+.btn-success:hover:not(:disabled) {
   background: #357a38;
   transform: translateY(-2px);
+}
+
+.btn-success:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
@@ -403,10 +442,43 @@
   color: #ffffff;
 }
 
+/* Messages */
+.success-message,
+.error-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+.success-message {
+  color: #2c5f2d;
+  background-color: #d4edda;
+  border: 1px solid #2c5f2d;
+}
+
+.error-message {
+  color: #e74c3c;
+  background-color: #fee;
+  border: 1px solid #e74c3c;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -439,5 +511,9 @@
 
   .movie-poster-small {
     margin: 0 auto;
+  }
+
+  .profile-bio {
+    padding: 12px;
   }
 }
