@@ -1,12 +1,17 @@
 import React from "react";
-
-export interface MovieInfoProps {
-  poster: string;
+import { hashCode } from "../../utils/image-hascode";
+interface MovieInfoProps {
+  poster?: string;
   title: string;
-  duration: string;
+  duration: number;
   rating: string;
   genre: string;
-  description: string;
+  includeDescription: boolean;
+  description?: string;
+  stars?: string;
+  className?: string;
+  posterClass?: string;
+  textClass?: string;
 }
 
 const MovieInfo: React.FC<MovieInfoProps> = ({
@@ -15,31 +20,38 @@ const MovieInfo: React.FC<MovieInfoProps> = ({
   duration,
   rating,
   genre,
+  includeDescription,
   description,
+  stars,
+  className = "",
+  posterClass = "",
+  textClass = "",
 }) => {
+  const posterPath = `/images/movie_${hashCode(title)}.png`;
   return (
-    <div className="movie-info">
-      <div className="poster">
-        <img
-          src={poster} alt={title}
-        />
-      </div>
+    <div className={`${className}`}>
+      <img
+        className={posterClass}
+        src={poster ? poster : posterPath}
+        alt={title}
+      />
 
-      <div className="details">
+      <div className={textClass}>
         <h1>{title}</h1>
 
-        <div className="info">
-          <span className="label">Duration:</span> {duration}
-        </div>
-        <div className="info">
-          <span className="label">Rating:</span> {rating}
-        </div>
-        <div className="info">
-          <span className="label">Genre:</span> {genre}
-        </div>
-        <div className="info">
-          <span className="label">Description:</span> {description}
-        </div>
+        <div><span className="label">Duration:</span> {duration} min</div>
+        <div><span className="label">PG:</span> {rating}</div>
+        <div><span className="label">Genre:</span> {genre}</div>
+        {includeDescription == true && (
+          <div>
+            <span className="label">Description:</span> {description}
+          </div>
+        )}
+        {stars && (
+          <div>
+            <span className="label">rating:</span> {stars}
+          </div>
+        )}
       </div>
     </div>
   );
