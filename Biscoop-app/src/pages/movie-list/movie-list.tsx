@@ -1,6 +1,6 @@
 import { getAppData } from "../../utils/storage";
-import { formatDateForShowing } from "../../utils/date-fromatter";
 import { Link } from "react-router-dom";
+import ShowInfo from "./showInfo";
 import "./movie-list.css"
 import MovieInfo from "../movie-detail/MovieInfo";
 
@@ -11,7 +11,7 @@ type Review = {
 };
 
 function MovieList() {
-    const { fakeMovies, fakeReviews, fakeShows, fakeZalen } = getAppData();
+    const { fakeMovies, fakeReviews } = getAppData();
     const renderStars = (rating: number) => {
         const fullStars = "★".repeat(Math.floor(rating));
         const halfStar = rating % 1 >= 0.5 ? "⯪" : "";
@@ -40,19 +40,7 @@ function MovieList() {
                         posterClass="poster-movielist"
                         textClass="movie-info-text"
                     />
-                    <div className="voorstelling-info">
-                        {fakeShows.filter(s => s.movieId == item.id).map((voorstelling) => (
-                            <div className="voorstelling-card">
-                                <div>zaal: {fakeZalen.find(z => z.id === voorstelling.zaalId)?.naam ?? "N/A"}</div>
-                                <div>
-                                    Stoelen: {(fakeZalen.find(z => z.id === voorstelling.zaalId)?.rijen ?? 0) *
-                                        (fakeZalen.find(z => z.id === voorstelling.zaalId)?.stoelen_per_rij ?? 0)}
-                                </div>
-                                <div>start date: {formatDateForShowing(voorstelling.start_date)}</div>
-                                <div>end date: {formatDateForShowing(voorstelling.end_date)}</div>
-                            </div>
-                        ))}
-                    </div>
+                    <ShowInfo movieId={item.id} button={false} />
                     <Link
                         key={item.id ?? "N/A"}
                         to={`/movie_detail/${item.id ?? ""}`}
