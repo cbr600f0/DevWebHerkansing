@@ -27,7 +27,7 @@ const MovieInfo: React.FC<MovieInfoProps> = ({
   posterClass = "",
   textClass = "",
 }) => {
-  const posterPath = `images/movie_${hashCode(title)}.png`;
+  const posterPath = `/images/movie_${hashCode(title)}.png`;
   return (
     <div className={`${className}`}>
       <img

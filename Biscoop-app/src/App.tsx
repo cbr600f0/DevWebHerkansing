@@ -13,15 +13,13 @@ function App() {
     <BrowserRouter>
     <NavBalk/>
       <Routes>
-        <Route path="/movie_detail" element={<Movie_detail />}/>
-        <Route path="movie_detail/:id" element={<Movie_detail />} />
+        <Route path="movie_detail/:movieId" element={<Movie_detail />} />
         <Route path="/movie_list" element={<Movie_list />}/>
         <Route path="/movie_panel" element={<Movie_panel />}/>
         <Route path="/zaal_panel" element={<Zaal_panel/>}/>
         <Route path="/show_panel" element={<Show_panel/>}/>
-        <Route path="/" element={<Navigate to="/movie_detail" replace />} />
+        <Route path="/" element={<Navigate to="/movie_list" replace />} />
         <Route path="/ScreeningRoom" element={<ScreeningRoom />} />
-        <Route path="/" element={<Navigate to="/ScreeningRoom" replace />} />
       </Routes>
     </BrowserRouter>
   )

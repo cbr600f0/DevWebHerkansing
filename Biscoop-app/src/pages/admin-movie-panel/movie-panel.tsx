@@ -36,6 +36,7 @@ function Movie_panel() {
             alert("Please enter all info.");
             return;
         }
+        console.log(`movie_${hashCode(title)}.png`)
 
         // Post to backend
         alert("Movie saved!");

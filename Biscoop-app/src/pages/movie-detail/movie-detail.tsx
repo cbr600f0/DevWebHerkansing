@@ -2,33 +2,19 @@ import "./movie-detail.css";
 import ReviewList from "./ReviewList";
 import ShowtimeSelector from "./ShowSelector";
 import MovieInfo from "./MovieInfo";
+import { fakeMovies, fakeReviews} from "../../utils/fake-data"
+import { useParams } from "react-router-dom";
+
 
 function Movie_detail() {
-
+    const { movieId } = useParams();
     const showtimes = [
         { time: "1430", room: "Theater 5", total: 120, available: 84 },
         { time: "1700", room: "Theater 2", total: 150, available: 112 },
         { time: "1930", room: "Theater 3", total: 200, available: 90 },
         { time: "2215", room: "Theater 1", total: 100, available: 47 }
     ];
-
-    const reviews = [
-        {
-            name: "Gee buternaps",
-            text: "Fun to watch, I recommend a pineapple as snack.",
-            rating: 4,
-        },
-        {
-            name: "Shawn",
-            text: "Just because you put syrup on something doesn't make it pancakes.",
-            rating: 5,
-        },
-        {
-            name: "Gurton buster",
-            text: "Perfect blend of comedy and mystery, exactly what I expected.",
-            rating: 5,
-        },
-    ];
+    const movie = fakeMovies.find((m) => m.id === movieId) ?? fakeMovies[0];
 
 return(
     <div className="container">
@@ -43,12 +29,12 @@ return(
 
         <div>
             <MovieInfo
-                title="Psych: The Movie"
-                duration={88}
-                rating="PG-13"
-                genre="Comedy, Mystery"
+                title={movie.title}
+                duration={movie.duration}
+                rating={movie.rating}
+                genre={movie.genre}
                 includeDescription = {true}
-                description="A comedic thriller and a continuation of the TV series, following Shawn Spencer and Burton Guster as they investigate an attack on Juliet O'Hara's partner, Samuel, which results in the theft of a device giving access to the San Francisco Police Department database."
+                description={movie.description}
                 className="movie-info"
                 posterClass="poster"
                 textClass="info"
@@ -57,7 +43,7 @@ return(
 
         <div className="reviews">
             <h2>Reviews</h2>
-            <ReviewList reviews={reviews} />
+            <ReviewList reviews={fakeReviews.filter(r => r.movieId === movieId)} />
         </div>
     </div>    
     )

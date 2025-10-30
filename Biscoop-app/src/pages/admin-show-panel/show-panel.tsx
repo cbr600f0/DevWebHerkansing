@@ -8,27 +8,27 @@ import { fakeZalen } from "../../utils/fake-data"
 
 function Show_panel() {
     interface ZaalProp {
-        id: string;
-        naam: string;
-        rijen: number;
-        stoelen_per_rij: number;
+    id: string;
+    naam: string;
+    rijen: number;
+    stoelen_per_rij: number;
     }
 
     interface MovieProp {
-        id: string;
-        title: string;
-        duration: number;
-        rating: string;
-        genre: string;
-        description: string;
+    id: string;
+    title: string;
+    duration: number;
+    rating: string;
+    genre: string;
+    description: string;
     }
 
     interface ShowProp {
-        id: string;
-        start_date: Date;
-        end_date: Date;
-        movie: MovieProp;
-        zaal: ZaalProp;
+    id: string;
+    start_date: Date;
+    end_date: Date;
+    movieId: string;
+    zaalId: string;
     }
 
     const [shows, setShows] = useState<ShowProp[]>(fakeShows);
@@ -81,8 +81,8 @@ function Show_panel() {
             return;
         }
 
-        setSelectedMovie(show.movie);
-        setSelectedZaal(show.zaal);
+        setSelectedMovie(fakeMovies.find(m => m.id === show.movieId) ?? null);
+        setSelectedZaal(fakeZalen.find(z => z.id === show.zaalId) ?? null);
         setStartDate(show.start_date);
         setEndDate(show.end_date);
     };
@@ -202,7 +202,7 @@ function Show_panel() {
                         <option value="">-- Pick a Show --</option>
                         {shows.map((show) => (
                             <option key={show.id} value={show.id}>
-                                {show.movie.title} - {show.zaal.naam}
+                                {fakeMovies.find(m => m.id === show.movieId)?.title ?? "N/A"} - {fakeZalen.find(z => z.id === show.zaalId)?.naam ?? "N/A"}
                             </option>
                         ))}
                     </select>
