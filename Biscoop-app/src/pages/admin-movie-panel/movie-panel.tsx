@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { hashCode } from "../../utils/image-hascode";
+// import { hashCode } from "../../utils/image-hascode";
 import { getAppData, deleteItem, addItem, updateItem } from "../../utils/storage";
 import MovieInfo from "../movie-detail/MovieInfo";
 import "./movie-panel.css";
