@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {fakeZalen} from "../../utils/fake-data"
+import { getAppData, deleteItem, addItem, updateItem } from "../../utils/storage";
 import "./zaal-panel.css";
 
 function Zaal_panel() {
@@ -9,7 +9,7 @@ function Zaal_panel() {
         rijen: number;
         stoelen_per_rij: number;
     }
-
+    const { fakeZalen } = getAppData();
     const [zalen, setZalen] = useState<ZaalProp[]>(fakeZalen);
 
     const [naam, setNaam] = useState("");
@@ -19,14 +19,33 @@ function Zaal_panel() {
 
 
     const handleSave = () => {
-        if (!naam || !rijen || !stoelenPerRij) {
+        if (!naam || rijen === "" || stoelenPerRij === "") {
             alert("Please enter all info.");
             return;
         }
 
-        // Post to backend
-        alert("Zaal saved!");
-    };
+        const rijenNum = Number(rijen);
+        const stoelenNum = Number(stoelenPerRij);
+
+        if (selectedZaal) {
+            selectedZaal.naam = naam;
+            selectedZaal.rijen = rijenNum;
+            selectedZaal.stoelen_per_rij = stoelenNum;
+
+            updateItem("fakeZalen", selectedZaal);
+            alert("Zaal updated!");
+        } else {
+            const newZaal: ZaalProp = {
+                id: crypto.randomUUID(),
+                naam,
+                rijen: rijenNum,
+                stoelen_per_rij: stoelenNum,
+            };
+            addItem("fakeZalen", newZaal);
+            alert("Zaal saved!");
+        }
+
+    }
 
     const zaalChosen = (zaal: ZaalProp | null) => {
         if (!zaal) {
@@ -45,7 +64,7 @@ function Zaal_panel() {
         <div className="movie-panel-container">
             <div className="movie-preview-side">
                 <div className="top"><h1>Preview</h1></div>
-                
+
             </div>
 
             <div className="movie-form-side">
@@ -85,7 +104,7 @@ function Zaal_panel() {
                     </div>
 
                     <button onClick={handleSave} className="save-button">
-                        Save Room
+                        {selectedZaal ? "Update Room" : "Save Room"}
                     </button>
                 </div>
 
@@ -106,7 +125,7 @@ function Zaal_panel() {
                             </option>
                         ))}
                     </select>
-                    
+
                     <button
                         className="delete-button"
                         onClick={() => {
@@ -115,9 +134,10 @@ function Zaal_panel() {
                             setZalen(updatedZalen);
                             setSelectedZaal(null);
                             zaalChosen(null);
+                            deleteItem("fakeZalen", selectedZaal.id)
                         }}
                     >
-                        Delete Movie
+                        Delete Room
                     </button>
                 </div>
             </div>

@@ -2,33 +2,32 @@ import { useState } from "react";
 import { formatDateForShowing } from "../../utils/date-fromatter";
 import MovieInfo from "../movie-detail/MovieInfo";
 import "./show-panel.css";
-import { fakeShows } from "../../utils/fake-data"
-import { fakeMovies } from "../../utils/fake-data"
-import { fakeZalen } from "../../utils/fake-data"
+import { getAppData, deleteItem, addItem, updateItem} from "../../utils/storage";
 
 function Show_panel() {
+    const { fakeMovies, fakeShows, fakeZalen } = getAppData();
     interface ZaalProp {
-    id: string;
-    naam: string;
-    rijen: number;
-    stoelen_per_rij: number;
+        id: string;
+        naam: string;
+        rijen: number;
+        stoelen_per_rij: number;
     }
 
     interface MovieProp {
-    id: string;
-    title: string;
-    duration: number;
-    rating: string;
-    genre: string;
-    description: string;
+        id: string;
+        title: string;
+        duration: number;
+        rating: string;
+        genre: string;
+        description: string;
     }
 
     interface ShowProp {
-    id: string;
-    start_date: Date;
-    end_date: Date;
-    movieId: string;
-    zaalId: string;
+        id: string;
+        start_date: Date;
+        end_date: Date;
+        movieId: string;
+        zaalId: string;
     }
 
     const [shows, setShows] = useState<ShowProp[]>(fakeShows);
@@ -42,21 +41,46 @@ function Show_panel() {
     const [endDate, setEndDate] = useState<Date | string>("");
 
     const handleSave = () => {
-        if (!selectedMovie || !selectedzaal || !endDate || !startDate) {
+        if (!selectedMovie || !selectedzaal || !startDate || !endDate) {
             alert("Please enter all info.");
             return;
         }
-        if (new Date(startDate) > new Date(endDate)) {
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        if (start > end) {
             alert("Start date can't be after end date.");
             return;
         }
-        if (new Date(addMinutes(startDate, selectedMovie.duration)) > new Date(endDate)) {
+
+        const showEnd = new Date(start.getTime() + selectedMovie.duration * 60000);
+        if (showEnd > end) {
             alert("Show isn't long enough.");
             return;
         }
 
-        // Post to backend
-        alert("show saved!");
+        if (selectedShow) {
+            selectedShow.movieId = selectedMovie.id;
+            selectedShow.zaalId = selectedzaal.id;
+            selectedShow.start_date = start;
+            selectedShow.end_date = end;
+
+            updateItem("fakeShows", selectedShow);
+            alert("Show updated!");
+        } else {
+            // Add new show
+            const newShow: ShowProp = {
+                id: crypto.randomUUID(),
+                movieId: selectedMovie.id,
+                zaalId: selectedzaal.id,
+                start_date: start,
+                end_date: end,
+            };
+            addItem("fakeShows", newShow);
+            alert("Show saved!");
+        }
+
     };
 
     function formatDateForInput(date: Date | string): string {
@@ -65,11 +89,6 @@ function Show_panel() {
         const offset = date.getTimezoneOffset();
         const local = new Date(date.getTime() - offset * 60 * 1000);
         return local.toISOString().slice(0, 16);
-    }
-
-    function addMinutes(date: Date | string, minutes: number): Date {
-        const base = typeof date === "string" ? new Date(date) : date;
-        return new Date(base.getTime() + minutes * 60000);
     }
 
     const showChosen = (show: ShowProp | null) => {
@@ -104,7 +123,7 @@ function Show_panel() {
                         textClass="movie-preview-info"
                     />
                 )}
-                {selectedzaal!= null &&
+                {selectedzaal != null &&
                     <div id="info">
                         <div>
                             <span className="label">Room name:</span> {selectedzaal?.naam}
@@ -114,14 +133,14 @@ function Show_panel() {
                         </div>
                     </div>
                 }
-                {startDate!= "" &&
+                {startDate != "" &&
                     <div id="info">
                         <div>
                             <span className="label">Start date:</span> {formatDateForShowing(startDate)}
                         </div>
                     </div>
                 }
-                {endDate!= "" &&
+                {endDate != "" &&
                     <div id="info">
                         <div>
                             <span className="label">End date:</span> {formatDateForShowing(endDate)}
@@ -185,7 +204,7 @@ function Show_panel() {
                     </div>
 
                     <button onClick={handleSave} className="save-button">
-                        Save show
+                        {selectedShow ? "Update Show" : "Save Show"}
                     </button>
                 </div>
 
@@ -214,7 +233,7 @@ function Show_panel() {
                             const updatedShows = shows.filter(s => s.id !== selectedShow.id);
                             setShows(updatedShows);
                             showChosen(null);
-                            // uiteindelijk delete naar backend
+                            deleteItem("fakeShows", selectedShow.id)
                         }}
                     >
                         Delete Show

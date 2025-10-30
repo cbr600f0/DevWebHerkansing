@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { hashCode } from "../../utils/image-hascode";
-import { fakeMovies } from "../../utils/fake-data";
+import { getAppData, deleteItem, addItem, updateItem } from "../../utils/storage";
 import MovieInfo from "../movie-detail/MovieInfo";
 import "./movie-panel.css";
 
 function Movie_panel() {
+    const { fakeMovies } = getAppData();
     interface MovieProp {
         id: string;
         title: string;
@@ -15,6 +16,7 @@ function Movie_panel() {
     }
 
     const [movies, setMovies] = useState<MovieProp[]>(fakeMovies);
+
 
     const [title, setTitle] = useState("");
     const [rating, setRating] = useState("");
@@ -32,14 +34,32 @@ function Movie_panel() {
     };
 
     const handleSave = () => {
-        if (!poster || !title || !description || !rating) {
+        if (!title || !description || !rating) {
             alert("Please enter all info.");
             return;
         }
-        console.log(`movie_${hashCode(title)}.png`)
 
-        // Post to backend
-        alert("Movie saved!");
+        if (selectedMovie) {
+            selectedMovie.title = title;
+            selectedMovie.description = description;
+            selectedMovie.rating = rating;
+            selectedMovie.genre = genre;
+            selectedMovie.duration = duration as number;
+            updateItem("fakeMovies", selectedMovie);
+            alert("Movie updated!");
+        } else {
+            const newMovie: MovieProp = {
+                id: crypto.randomUUID(),
+                title,
+                description,
+                rating,
+                genre,
+                duration: duration as number,
+            };
+            addItem("fakeMovies", newMovie);
+            alert("Movie saved!");
+        }
+
     };
 
     const movieChosen = (movie: MovieProp | null) => {
@@ -145,7 +165,7 @@ function Movie_panel() {
                     </div>
 
                     <button onClick={handleSave} className="save-button">
-                        Save Movie
+                        {selectedMovie ? "Update Movie" : "Save Movie"}
                     </button>
                 </div>
 
@@ -174,7 +194,8 @@ function Movie_panel() {
                             setMovies(updatedMovies);
                             setSelectedMovie(null);
                             movieChosen(null);
-                            // uiteindelijk delete naar backend
+                            deleteItem("fakeMovies", selectedMovie.id);
+
                         }}
                     >
                         Delete Movie

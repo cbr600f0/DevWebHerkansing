@@ -41,9 +41,12 @@ h2 {
   flex-wrap: nowrap; 
 }
 
-.poster-detail{
-  width: 220px;
+.poster{
+  width: 220px;       
+  height: auto;       
+  max-height: 330px;  
   border-radius: 6px;
+  object-fit: cover;  
 }
 
 .details {

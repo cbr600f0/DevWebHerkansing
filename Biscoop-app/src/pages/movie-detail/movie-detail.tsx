@@ -2,12 +2,13 @@ import "./movie-detail.css";
 import ReviewList from "./ReviewList";
 import ShowtimeSelector from "./ShowSelector";
 import MovieInfo from "./MovieInfo";
-import { fakeMovies, fakeReviews} from "../../utils/fake-data"
+import { getAppData } from "../../utils/storage";
 import { useParams } from "react-router-dom";
 
 
 function Movie_detail() {
     const { movieId } = useParams();
+    const { fakeMovies, fakeReviews } = getAppData();
     const showtimes = [
         { time: "1430", room: "Theater 5", total: 120, available: 84 },
         { time: "1700", room: "Theater 2", total: 150, available: 112 },

@@ -1,4 +1,4 @@
-import { fakeMovies, fakeShows, fakeReviews, fakeZalen } from "../../utils/fake-data"
+import { getAppData } from "../../utils/storage";
 import { formatDateForShowing } from "../../utils/date-fromatter";
 import { Link } from "react-router-dom";
 import "./movie-list.css"
@@ -11,6 +11,7 @@ type Review = {
 };
 
 function MovieList() {
+    const { fakeMovies, fakeReviews, fakeShows, fakeZalen } = getAppData();
     const renderStars = (rating: number) => {
         const fullStars = "★".repeat(Math.floor(rating));
         const halfStar = rating % 1 >= 0.5 ? "⯪" : "";
